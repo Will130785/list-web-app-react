@@ -5,6 +5,7 @@ const Router: React.FC<IRouter> = ({ children }) => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
   useEffect(() => {
+    console.log('RENDERED')
     const onLocationChange = () => {
       setCurrentPath(window.location.pathname)
     }
@@ -26,7 +27,11 @@ const Router: React.FC<IRouter> = ({ children }) => {
         if (currentPath === child.props.path) {
           return <div key={index}>{child.props.component()}</div>
         } else {
-          return null
+          return (
+            <div style={{ display: 'none' }} key={index}>
+              {child.props.component()}
+            </div>
+          )
         }
       })}
     </>

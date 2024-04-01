@@ -1,18 +1,17 @@
 import MainLayout from '../../layouts/mainLayout'
 import Link from '../../../router/link'
 
-const Home = () => {
+const AllLists = () => {
   return (
     <MainLayout>
-      <div data-testid="homePage">
-        <div>Home Page</div>
+      <div data-testid="allLists">
+        <div>All Lists</div>
         <div>
           <Link to="/add-list">Add List</Link>
-          <Link to="/all-lists">All Lists</Link>
         </div>
       </div>
     </MainLayout>
   )
 }
 
-export default Home
+export default AllLists

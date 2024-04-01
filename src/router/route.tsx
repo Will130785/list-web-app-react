@@ -4,6 +4,7 @@ import { IRoute } from './types'
 // Its props are called in the main router component
 //
 const Route: React.FC<IRoute> = () => {
+  console.log('TROUTE')
   return <></>
 }
 

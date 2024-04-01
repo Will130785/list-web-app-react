@@ -2,13 +2,10 @@ import Link from '../../../router/link'
 
 const TopBar = () => {
   return (
-    <nav>
+    <nav data-testid="topBar" className="h-14 bg-black flex items-center p-2">
       <ul>
-        <li>
+        <li className="text-white cursor-pointer">
           <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/add-list">Add List</Link>
         </li>
       </ul>
     </nav>
