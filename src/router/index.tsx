@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { IRoute, IRouter } from './types'
+import { useRouter } from './hooks/useRouter'
 
 const Router: React.FC<IRouter> = ({ children }) => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const { renderRoute } = useRouter()
 
   useEffect(() => {
     console.log('RENDERED')
@@ -20,22 +22,7 @@ const Router: React.FC<IRouter> = ({ children }) => {
       window.removeEventListener('popstate', onLocationChange)
     }
   }, [])
-  return (
-    <>
-      {children.map((child: { props: IRoute }, index: number) => {
-        // Map through the routes provided as children props and only render the route matching the current path
-        if (currentPath === child.props.path) {
-          return <div key={index}>{child.props.component()}</div>
-        } else {
-          return (
-            <div style={{ display: 'none' }} key={index}>
-              {child.props.component()}
-            </div>
-          )
-        }
-      })}
-    </>
-  )
+  return <>{renderRoute(children, currentPath)}</>
 }
 
 export default Router

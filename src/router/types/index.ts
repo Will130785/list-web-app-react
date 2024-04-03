@@ -4,7 +4,7 @@ export interface IRouter {
 
 export interface IRoute {
   path: string
-  component(): JSX.Element
+  component: JSX.Element
 }
 
 export interface ILink {

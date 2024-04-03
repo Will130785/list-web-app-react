@@ -10,8 +10,8 @@ describe('router', () => {
     window.history.pushState({}, '', '/')
     render(
       <Router>
-        <Route path="/" component={TestPage1} />
-        <Route path="/test" component={TestPage2} />
+        <Route path="/" component={<TestPage1 />} />
+        <Route path="/test" component={<TestPage2 />} />
       </Router>
     )
 
@@ -22,8 +22,8 @@ describe('router', () => {
     window.history.pushState({}, '', '/test')
     render(
       <Router>
-        <Route path="/" component={TestPage1} />
-        <Route path="/test" component={TestPage2} />
+        <Route path="/" component={<TestPage1 />} />
+        <Route path="/test" component={<TestPage2 />} />
       </Router>
     )
 
