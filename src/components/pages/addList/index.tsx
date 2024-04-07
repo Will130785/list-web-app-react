@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import MainLayout from '../../layouts/mainLayout'
 import { useForm } from '../../../hooks/useForm'
 
@@ -20,9 +21,24 @@ const AddList = () => {
     setListItems([...tempList])
   }
 
-  const handleAddList = () => {
-    console.log(values)
+  const handleAddList = async (listData: any) => {
+    console.log(listData)
+    fetch('http://localhost:3000/list-node-api/create-list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(listData),
+    })
   }
+
+  const mutation = useMutation({
+    mutationFn: handleAddList,
+    onSuccess: () => {
+      console.log('SUCCESS')
+    },
+  })
 
   return (
     <MainLayout>
@@ -84,7 +100,12 @@ const AddList = () => {
                 <button
                   className="p-2 bg-purple-600 w-full text-white rounded-md"
                   type="button"
-                  onClick={handleAddList}
+                  onClick={() =>
+                    mutation.mutate({
+                      listName: values.listName,
+                      listItems,
+                    })
+                  }
                 >
                   Add List
                 </button>
