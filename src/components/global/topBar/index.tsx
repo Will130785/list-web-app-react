@@ -1,4 +1,4 @@
-import Link from '../../../router/link'
+import { Link } from '@tanstack/react-router'
 
 const TopBar = () => {
   return (

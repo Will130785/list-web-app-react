@@ -1,5 +1,5 @@
 import MainLayout from '../../layouts/mainLayout'
-import Link from '../../../router/link'
+import { Link } from '@tanstack/react-router'
 
 const Home = () => {
   return (
@@ -7,8 +7,8 @@ const Home = () => {
       <div data-testid="homePage">
         <div>Home Page</div>
         <div>
-          <Link to="/add-list">Add List</Link>
-          <Link to="/all-lists">All Lists</Link>
+          <Link to="/add">Add List</Link>
+          <Link to="/all">All Lists</Link>
         </div>
       </div>
     </MainLayout>
