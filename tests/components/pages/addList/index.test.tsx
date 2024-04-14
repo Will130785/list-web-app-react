@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import userEvent from '@testing-library/user-event'
 import AddList from '../../../../src/components/pages/addList'
@@ -52,8 +52,10 @@ describe('pages addList index', () => {
       </QueryClientProvider>
     )
 
-    await userEvent.click(screen.getByText('+'))
-    await userEvent.type(screen.getByText('Add list item'), 'Test')
+    await act(async () => {
+      await userEvent.click(screen.getByText('+'))
+      await userEvent.type(screen.getByText('Add list item'), 'Test')
+    })
 
     expect(screen.getByText('-')).toBeVisible()
   })

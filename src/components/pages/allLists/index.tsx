@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import MainLayout from '../../layouts/mainLayout'
 
 const AllLists = () => {
@@ -9,19 +9,39 @@ const AllLists = () => {
     return parsed
   }
 
+  const handleDeletList = async (id: string) => {
+    return fetch(`http://localhost:3000/list-node-api/delete-list/${id}`, {
+      method: 'DELETE',
+    })
+  }
+
+  const queryClient = useQueryClient()
+
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['lists'],
     queryFn: handleGetLists,
+    retry: 0,
   })
 
+  const mutation = useMutation({
+    mutationFn: handleDeletList,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lists'] })
+    },
+  })
+
+  console.log(isPending, 'PENDING')
+  console.log(isError, 'IS ERROR')
+  console.log(error, 'ERROR')
+  console.log(data, 'DATA')
   if (isPending) {
-    return <span>Loading...</span>
+    return <span data-testid="allListsLoading">Loading...</span>
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>
+    return <span data-testid="allListsError">Error: {error.message}</span>
   }
-
+  console.log(data, '***')
   return (
     <MainLayout>
       <div data-testid="allLists">
@@ -32,7 +52,7 @@ const AllLists = () => {
           {data && data.lists && data.lists.length
             ? data.lists.map(
                 (
-                  list: { listName: string; listItems: string[] },
+                  list: { listName: string; listItems: string[]; _id: string },
                   listIndex: number
                 ) => (
                   <div
@@ -45,7 +65,7 @@ const AllLists = () => {
                     <button
                       className="bg-red-600 w-10 text-white rounded-md"
                       type="button"
-                      onClick={() => console.log('TEST')}
+                      onClick={() => mutation.mutate(list._id)}
                     >
                       -
                     </button>
